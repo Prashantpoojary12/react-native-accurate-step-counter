@@ -16,6 +16,7 @@ let subscription2;
  * such as shaking the device)
  * @param {Function} config.onStepCountChange A function which will be triggered when the count of steps changes.
  * @param {Function} config.onCheat Optional | A function which will be triggered when the user tries to cheat.
+ * @param {Number} config.currSteps
  */
 function startCounter(config) {
     const default_threshold = config.default_threshold || 15.0;
@@ -24,10 +25,13 @@ function startCounter(config) {
     const onStepCountChange = config.onStepCountChange;
     const onCheat = config.onCheat;
     let prevSteps = 0, currSteps = config.currSteps, currTime = 0;
+    let currEventSteps=0;
     
     subscription = WalkEvent.addListener('onStepRunning', (event) => {
         if (currTime + cheatInterval < new Date().getTime()) {
-            currSteps = Number(event.steps);
+            var temCal =Number(event.steps)-currEventSteps;
+            currEventSteps= Number(event.steps);
+            currSteps =currSteps + temCal;
             if (onStepCountChange) {
                 onStepCountChange(currSteps + prevSteps);
             }

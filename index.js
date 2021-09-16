@@ -29,7 +29,7 @@ function startCounter(config) {
     
     subscription = WalkEvent.addListener('onStepRunning', (event) => {
         if (currTime + cheatInterval < new Date().getTime()) {
-            var temCal =Number(event.steps)-currEventSteps;
+            var temCal = Number(event.steps) - currEventSteps;
             currEventSteps= Number(event.steps);
             currSteps =currSteps + temCal;
             if (onStepCountChange) {

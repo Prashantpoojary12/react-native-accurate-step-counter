@@ -23,7 +23,7 @@ function startCounter(config) {
     const cheatInterval = config.cheatInterval || 3000;
     const onStepCountChange = config.onStepCountChange;
     const onCheat = config.onCheat;
-    let prevSteps = 0, currSteps = 0, currTime = 0;
+    let prevSteps = 0, currSteps = config.currSteps, currTime = 0;
     
     subscription = WalkEvent.addListener('onStepRunning', (event) => {
         if (currTime + cheatInterval < new Date().getTime()) {
